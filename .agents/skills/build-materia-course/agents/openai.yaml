@@ -1,0 +1,26 @@
+interface:
+  display_name: "Materia Course Teacher"
+  short_description: "Research and author complete, traceable Materia courses"
+  default_prompt: "Use $build-materia-course to confirm the intended depth, research official sources, and build a traceable Materia course, rereading and improving each persisted lesson before continuing."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "microsoft_learn"
+      description: "Official Microsoft Learn documentation research"
+      transport: "streamable_http"
+      url: "https://learn.microsoft.com/api/mcp?maxTokenBudget=3000"
+    - type: "mcp"
+      value: "aws_knowledge"
+      description: "Official AWS documentation research"
+      transport: "streamable_http"
+      url: "https://knowledge-mcp.global.api.aws"
+    - type: "mcp"
+      value: "google_developer_knowledge"
+      description: "Official Google developer documentation research"
+      transport: "stdio"
+    - type: "mcp"
+      value: "materia"
+      description: "Local Materia course authoring and selective speech"
+      transport: "stdio"
+policy:
+  allow_implicit_invocation: true

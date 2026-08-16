@@ -1,0 +1,7 @@
+{
+  "my-voice": {
+    "label": "Private reference voice",
+    "referenceAudio": "/absolute/private/path/reference.wav",
+    "referenceText": "Literal and exact transcript of the reference recording."
+  }
+}

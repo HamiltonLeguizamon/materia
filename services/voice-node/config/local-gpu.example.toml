@@ -1,0 +1,61 @@
+[node]
+id = "local-gpu-node"
+label = "Local GPU voice node"
+bind = "127.0.0.1"
+port = 8880
+work_dir = "~/.local/share/materia-voice-node"
+ffmpeg = "ffmpeg"
+max_concurrent_jobs = 1
+retention_ttl_seconds = 21600
+max_retained_jobs = 100
+max_retained_bytes = 2147483648
+auth_token_env = "MATERIA_VOICE_NODE_TOKEN"
+
+[engines.kokoro]
+label = "Kokoro 82M"
+quality = "fast"
+python = "~/.local/share/materia/engines/kokoro/.venv/bin/python"
+worker = "kokoro"
+languages = ["es"]
+voices = [
+  { id = "ef_dora", label = "Dora · female" },
+  { id = "em_alex", label = "Alex · male" },
+  { id = "em_santa", label = "Santa · deep male" },
+]
+
+[engines.kokoro.environment]
+VOICE_NODE_DEVICE = "cuda"
+KOKORO_MODEL = "hexgrad/Kokoro-82M"
+
+[engines.qwen]
+label = "Qwen Base 1.7B"
+quality = "high"
+python = "~/.local/share/materia/engines/qwen/.venv/bin/python"
+worker = "qwen"
+languages = ["es"]
+voices = [
+  { id = "my-voice", label = "Private reference voice" },
+  { id = "synthetic-teacher", label = "Synthetic teacher" },
+]
+
+[engines.qwen.environment]
+VOICE_NODE_DEVICE = "cuda:0"
+QWEN_MODEL = "Qwen/Qwen3-TTS-12Hz-1.7B-Base"
+QWEN_ATTENTION = "sdpa"
+QWEN_VOICES_FILE = "~/.config/materia/qwen-voices.json"
+
+[engines.chatterbox]
+label = "Chatterbox es-ES"
+quality = "balanced"
+python = "~/.local/share/materia/engines/chatterbox/.venv/bin/python"
+worker = "chatterbox"
+languages = ["es"]
+voices = [
+  { id = "my-voice", label = "Private reference voice" },
+]
+
+[engines.chatterbox.environment]
+VOICE_NODE_DEVICE = "cuda"
+CHATTERBOX_MODEL_DIR = "~/.local/share/materia/models/chatterbox-es-es"
+CHATTERBOX_T3_MODEL = "t3_es_es.safetensors"
+CHATTERBOX_VOICES_FILE = "~/.config/materia/chatterbox-voices.json"

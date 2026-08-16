@@ -1,0 +1,12 @@
+.git
+.next
+.data
+.pnpm-store
+node_modules
+coverage
+docs/design
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example

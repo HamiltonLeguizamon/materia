@@ -1,0 +1,29 @@
+[node]
+id = "compatible-node"
+label = "OpenAI-compatible voice node"
+bind = "127.0.0.1"
+port = 8880
+work_dir = "~/.local/share/materia-voice-node"
+ffmpeg = "ffmpeg"
+max_concurrent_jobs = 1
+retention_ttl_seconds = 21600
+max_retained_jobs = 100
+max_retained_bytes = 2147483648
+auth_token_env = "MATERIA_VOICE_NODE_TOKEN"
+
+[engines.kokoro]
+label = "OpenAI-compatible Kokoro"
+quality = "fast"
+python = "~/.local/share/materia/voice-node/.venv/bin/python"
+worker = "openai-compatible"
+languages = ["es"]
+voices = [
+  { id = "ef_dora", label = "Dora · female" },
+  { id = "em_alex", label = "Alex · male" },
+  { id = "em_santa", label = "Santa · deep male" },
+]
+
+[engines.kokoro.environment]
+UPSTREAM_BASE_URL = "http://127.0.0.1:8881"
+UPSTREAM_MODEL = "replace-with-the-upstream-model-id"
+UPSTREAM_TIMEOUT_SECONDS = "300"
